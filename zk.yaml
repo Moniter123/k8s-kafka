@@ -126,11 +126,13 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: datadir
-      annotations:
-        volume.beta.kubernetes.io/storage-class: nfs-storage
-        volume.beta.kubernetes.io/storage-provisioner: fuseim.pri/ifs
+      #This annotation is still working, however it will become fully deprecated in a future Kubernetes release.just use storageClassName.
+      # annotations:
+      #   volume.beta.kubernetes.io/storage-class: nfs-storage
+      #   volume.beta.kubernetes.io/storage-provisioner: fuseim.pri/ifs
     spec:
       accessModes: [ "ReadWriteMany" ]
+      storageClassName: nfs-storage
       resources:
         requests:
           storage: 200Mi
