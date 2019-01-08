@@ -15,7 +15,10 @@ kafka-2.1.0、scala-2.11、zk-3.4.10
 ## Build image
 
 ```bash
-make
+sh run.sh
+```
+```
+这里run.sh是直接上传到我的dockerhub，可以把地址改成自己的私有仓库地址
 ```
 ## Deploymet
 
