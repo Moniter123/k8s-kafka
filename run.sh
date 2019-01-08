@@ -2,7 +2,7 @@
 
 #build image
 tag="v2.1.0"
-project="fastop/k8s-kafka"
+project="fastop/k8s-kafaka"
 
 docker build -t $project:$tag .
 

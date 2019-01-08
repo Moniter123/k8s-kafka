@@ -27,6 +27,7 @@ kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
 ```
 ```
+默认部署在default这个namesapce里面。
 测试zk：
 kubectl exec -it zk-0 -- zkServer.sh status
 kubectl exec -it zk-0 -- zkCli.sh create /hello world
