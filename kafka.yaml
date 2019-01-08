@@ -60,7 +60,7 @@ spec:
       containers:
       - name: k8s-kafka
         imagePullPolicy: Always
-        image: fastop/k8s-kafka:2.1.0
+        image: fastop/k8s-kafka:v2.1.0
         resources:
           requests:
             memory: "600Mi"
