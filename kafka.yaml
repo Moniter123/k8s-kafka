@@ -28,6 +28,9 @@ kind: StatefulSet
 metadata:
   name: kafka
 spec:
+  selector:
+     matchLabels:
+        app: kafka
   serviceName: kafka-svc
   replicas: 3
   template:

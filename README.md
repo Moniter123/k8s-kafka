@@ -27,6 +27,15 @@ kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
 ```
 ```
+测试zk：
+kubectl exec -it zk-0 -- zkServer.sh status
+kubectl exec -it zk-0 -- zkCli.sh create /hello world
+kubectl delete -f zk.yaml 
+kubectl apply -f zk.yaml
+kubectl exec -it zk-0 -- zkCli.sh get /hello
+```
+
+```
 线上使用的时候注意修改资源，如mem、cpu、磁盘空间大小。根据自己的需求进行修改，本次创建的是3节点的集群，如有其他需求，直接scale进行扩容，注意
 不要超过nfs提供的空间大小，否则会启动失败，我使用的storageClass动态申请资源。
 ```
