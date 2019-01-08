@@ -40,6 +40,25 @@ kubectl exec -it zk-0 -- zkCli.sh get /hello
 线上使用的时候注意修改资源，如mem、cpu、磁盘空间大小。根据自己的需求进行修改，本次创建的是3节点的集群，如有其他需求，直接scale进行扩容，注意
 不要超过nfs提供的空间大小，否则会启动失败，我使用的storageClass动态申请资源。
 ```
+### service FQDN
+
+```
+zk:
+zk-0.zk-hs.default.svc.cluster.local
+zk-1.zk-hs.default.svc.cluster.local
+zk-2.zk-hs.default.svc.cluster.local 
+
+zk-port:
+2181
+
+kafka:
+kafka-0.kafka-svc.default.svc.cluster.local 
+kafka-1.kafka-svc.default.svc.cluster.local
+kafka-2.kafka-svc.default.svc.cluster.local 
+
+kafka-port:
+9093
+```
 
 ## Statefulset
 
