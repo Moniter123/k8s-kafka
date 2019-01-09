@@ -26,6 +26,8 @@ sh run.sh
 kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
 ```
+## Testing
+
 ```
 默认部署在default这个namesapce里面。
 测试zk：
@@ -34,6 +36,24 @@ kubectl exec -it zk-0 -- zkCli.sh create /hello world
 kubectl delete -f zk.yaml 
 kubectl apply -f zk.yaml
 kubectl exec -it zk-0 -- zkCli.sh get /hello
+
+测试kafka：
+kubectl exec -it kafka-0 -- bash 
+
+>kafka-topics.sh --create \
+--topic test \
+--zookeeper zk-0.zk-hs.default.svc.cluster.local:2181,zk-1.zk-hs.default.svc.cluster.local:2181,zk-2.zk-hs.default.svc.cluster.local:2181 \
+--partitions 3 \
+--replication-factor 2
+
+>kafka-console-consumer.sh --topic test --bootstrap-server localhost:9093
+
+kubectl exec -it kafka-1 -- bash
+
+>kafka-console-producer.sh --topic test --broker-list localhost:9093
+随便输入一些东西：hello 
+
+此时会在kafka-0的那边启动的kafka-console-consumer.sh会有相应的输出
 ```
 
 ```
