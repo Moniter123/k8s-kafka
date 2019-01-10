@@ -7,7 +7,7 @@ metadata:
     app: kafka
 spec:
   ports:
-  - port: 9093
+  - port: 9092
     name: server
   clusterIP: None
   selector:
@@ -63,19 +63,19 @@ spec:
       containers:
       - name: k8s-kafka
         imagePullPolicy: Always
-        image: fastop/k8s-kafka:v2.1.0
+        image: fastop/kafka:v2
         resources:
           requests:
             memory: "600Mi"
             cpu: 500m
         ports:
-        - containerPort: 9093
+        - containerPort: 9092
           name: server
         command:
         - sh
         - -c
         - "exec kafka-server-start.sh /opt/kafka/config/server.properties --override broker.id=${HOSTNAME##*-} \
-          --override listeners=PLAINTEXT://:9093 \
+          --override listeners=PLAINTEXT://:9092 \
           --override zookeeper.connect=zk-0.zk-hs.default.svc.cluster.local:2181,zk-1.zk-hs.default.svc.cluster.local:2181,zk-2.zk-hs.default.svc.cluster.local:2181 \
           --override log.dir=/var/lib/kafka \
           --override auto.create.topics.enable=true \
@@ -136,7 +136,7 @@ spec:
           --override fetch.purgatory.purge.interval.requests=1000 \
           --override group.max.session.timeout.ms=300000 \
           --override group.min.session.timeout.ms=6000 \
-          --override inter.broker.protocol.version=0.10.2-IV0 \
+          #--override inter.broker.protocol.version=o.11.0.3 \
           --override log.cleaner.backoff.ms=15000 \
           --override log.cleaner.dedupe.buffer.size=134217728 \
           --override log.cleaner.delete.retention.ms=86400000 \
@@ -170,11 +170,10 @@ spec:
         - name: datadir
           mountPath: /var/lib/kafka
         readinessProbe:
-          exec:
-           command: 
-            - sh 
-            - -c 
-            - "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server=localhost:9093"
+          tcpSocket:
+            port: 9092
+          timeoutSeconds: 1
+          initialDelaySeconds: 5
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
