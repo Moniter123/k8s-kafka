@@ -155,7 +155,7 @@ spec:
           --override log.preallocate=false \
           --override log.retention.check.interval.ms=300000 \
           --override max.connections.per.ip=2147483647 \
-          --override num.partitions=1 \
+          --override num.partitions=4 \
           --override producer.purgatory.purge.interval.requests=1000 \
           --override replica.fetch.backoff.ms=1000 \
           --override replica.fetch.max.bytes=1048576 \
