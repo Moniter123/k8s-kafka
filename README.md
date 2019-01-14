@@ -87,5 +87,4 @@ kafka-port:
 
 ```
 参考：https://kubernetes.io/docs/tutorials/stateful-application/
-https://github.com/cuishuaigit/k8s-monitor
 ```
