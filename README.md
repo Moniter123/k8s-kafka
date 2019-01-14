@@ -9,7 +9,7 @@ k8s1.12+ cluster 正常运行，nfs服务用于提供持久化存储
 ### kafka-zk version
 
 ```
-kafka-2.1.0、scala-2.11、zk-3.4.10
+kafka-0.11.0.3、scala-2.11、zk-3.4.10
 ```
 
 ### Build image
@@ -23,13 +23,14 @@ sh run.sh
 ### Deploymet
 
 ```bash
+kubectl create -f namesapce.yaml
 kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
 ```
 ### Testing
 
 ```
-默认部署在default这个namesapce里面。
+部署在kafka这个namesapce里面。
 测试zk：
 kubectl exec -it zk-0 -- zkServer.sh status
 kubectl exec -it zk-0 -- zkCli.sh create /hello world
@@ -42,7 +43,7 @@ kubectl exec -it kafka-0 -- bash
 
 >kafka-topics.sh --create \
 --topic test \
---zookeeper zk-0.zk-hs.default.svc.cluster.local:2181,zk-1.zk-hs.default.svc.cluster.local:2181,zk-2.zk-hs.default.svc.cluster.local:2181 \
+--zookeeper zk-0.zk-hs.kafka.svc.cluster.local:2181,zk-1.zk-hs.kafka.svc.cluster.local:2181,zk-2.zk-hs.kafka.svc.cluster.local:2181 \
 --partitions 3 \
 --replication-factor 2
 
@@ -64,17 +65,17 @@ kubectl exec -it kafka-1 -- bash
 
 ```
 zk:
-zk-0.zk-hs.default.svc.cluster.local
-zk-1.zk-hs.default.svc.cluster.local
-zk-2.zk-hs.default.svc.cluster.local 
+zk-0.zk-hs.kafka.svc.cluster.local
+zk-1.zk-hs.kafka.svc.cluster.local
+zk-2.zk-hs.kafka.svc.cluster.local 
 
 zk-port:
 2181
 
 kafka:
-kafka-0.kafka-svc.default.svc.cluster.local 
-kafka-1.kafka-svc.default.svc.cluster.local
-kafka-2.kafka-svc.default.svc.cluster.local 
+kafka-0.kafka-svc.kafka.svc.cluster.local 
+kafka-1.kafka-svc.kafka.svc.cluster.local
+kafka-2.kafka-svc.kafka.svc.cluster.local 
 
 kafka-port:
 9093
