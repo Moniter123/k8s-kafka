@@ -23,6 +23,8 @@ sh run.sh
 ### Deploymet
 
 ```bash
+提前准备好nfs服务用于提供持久化存储，参考我的: https://github.com/cuishuaigit/k8s-monitor
+
 kubectl create -f namesapce.yaml
 kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
@@ -85,4 +87,5 @@ kafka-port:
 
 ```
 参考：https://kubernetes.io/docs/tutorials/stateful-application/
+https://github.com/cuishuaigit/k8s-monitor
 ```
