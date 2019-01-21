@@ -49,11 +49,11 @@ kubectl exec -it kafka-0 -- bash
 --partitions 3 \
 --replication-factor 2
 
->kafka-console-consumer.sh --topic test --bootstrap-server localhost:9093
+>kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092
 
 kubectl exec -it kafka-1 -- bash
 
->kafka-console-producer.sh --topic test --broker-list localhost:9093
+>kafka-console-producer.sh --topic test --broker-list localhost:9092
 随便输入一些东西：hello 
 
 此时会在kafka-0的那边启动的kafka-console-consumer.sh会有相应的输出
