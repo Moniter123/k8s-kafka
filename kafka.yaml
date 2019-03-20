@@ -41,6 +41,19 @@ spec:
       labels:
         app: kafka
     spec:
+      nodeSelector:
+          deploy-queue: "yes"
+      toleration:
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 3600
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "PreferNoSchedule"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zk-hs
-  namesapce: kafka
+  namespace: kafka
   labels:
     app: zk
 spec:
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zk-cs
-  namesapce: kafka
+  namespace: kafka
   labels:
     app: zk
 spec:
@@ -33,7 +33,7 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: zk-pdb
-  namesapce: kafka
+  namespace: kafka
 spec:
   selector:
     matchLabels:
@@ -59,6 +59,19 @@ spec:
       labels:
         app: zk
     spec:
+      nodeSelector:
+          deploy-queue: "yes"
+      tolerations:
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 3600
+      - key: "deploy-queue"
+        operator: "Exists"
+        effect: "PreferNoSchedule"
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

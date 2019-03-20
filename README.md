@@ -22,9 +22,12 @@ sh run.sh
 ```
 ### Deploymet
 
-```bash
 提前准备好nfs服务用于提供持久化存储(注意将storageClass的name换成自己的)，参考我的: https://github.com/cuishuaigit/k8s-monitor
+need deploy kafka and zookeeper to a special node,so you can use taint、toleration and label setting your node and statefulset
 
+```bash
+kubectl taint node [node-name] deploy-queue=yes:Noschedule
+kubectl label node [node-name] deploy-queue=yes
 kubectl create -f namesapce.yaml
 kubectl  create -f zk.yaml
 kubectl  create -f kafka.yaml
@@ -80,7 +83,7 @@ kafka-1.kafka-svc.kafka.svc.cluster.local
 kafka-2.kafka-svc.kafka.svc.cluster.local 
 
 kafka-port:
-9093
+9092
 ```
 
 ### Statefulset
